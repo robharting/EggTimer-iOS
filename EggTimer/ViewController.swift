@@ -20,8 +20,10 @@ class ViewController: UIViewController {
     //    let eggTimes : [String : Int] = ["Soft": 300, "Medium": 420, "Hard": 720]
     let eggTimes : [String : Int] = ["Soft": 3, "Medium": 4, "Hard": 7]
     var timer = Timer()
+    var player: AVAudioPlayer!
     var totalTime = 0
     var secondsPassed = 0
+   
     
     @IBAction func hardnessSected(_ sender: UIButton) {
         timer.invalidate()
@@ -41,12 +43,12 @@ class ViewController: UIViewController {
             } else {
                 Timer.invalidate()
                 self.labelName.text = "DONE"
+                
+                let url = Bundle.main.url(forResource: "alarm_sound",  withExtension: "mp3")
+                self.player = try! AVAudioPlayer(contentsOf: url!)
+                self.player.play()
+                
             }
         }
-        
-        
-        
-    }
-    
-    
+      }
 }
