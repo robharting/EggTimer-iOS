@@ -11,41 +11,31 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-//    @IBOutlet weak var progressBar: UIProgressView!
-//    @IBOutlet weak var titleLabel: UILabel!
-
+    // via an dictonary collection
+    //let eggTimes : [String : Int] = ["Soft": 5, "Medium": 7, "Hard": 12]
+    // in seconds
+    let eggTimes : [String : Int] = ["Soft": 300, "Medium": 420, "Hard": 720]
     
-    let softTime = 5
-    let mediumTime = 7
-    let hardTime = 12
+    var secondsRemaining = 5
     
-    // via an dictonary
-    let eggTimes = ["Soft": 5, "Medium": 7, "Hard": 12]
     
-
     @IBAction func hardnessSected(_ sender: UIButton) {
         
         let hardness: String = sender.currentTitle!
+        secondsRemaining = eggTimes[hardness]!
         
-        if (hardness == "Soft") {
-            print(softTime)
-        } else if (hardness == "Medium" ){
-            print(mediumTime)
-        } else {
-            print(hardTime)
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
+            if self.secondsRemaining > 0 {
+                print ("\(self.secondsRemaining) seconds.")
+                self.secondsRemaining -= 1
+            } else {
+                Timer.invalidate()
+            }
         }
         
-                switch hardness {
-                    case "Soft":
-                        print("You want an \(hardness) egg that will take \(softTime) minutes")
-                    case "Medium":
-                        print("You want an \(hardness) egg that will take \(mediumTime) minutes")
-                    case "Hard":
-                        print("You want an \(hardness) egg that will take \(mediumTime) minutes")
-                    default:
-                        print("Error")
-                }
-        
+       
+                
     }
+        
     
 }
